@@ -23,13 +23,19 @@ git clone https://github.com/shidahuilang/openwrt-package.git --depth=1 --branch
 rm -rf ./package/addons/luci-theme-argon
 rm -rf ./package/addons/luci-app-argon-config
 
-git clone https://github.com/jerrykuku/luci-theme-argon.git ./package/argon/luci-theme-argon
+git clone https://github.com/jerrykuku/luci-theme-argon.git ./package/argon/luci-theme-argon --depth=1 
 
-git clone https://github.com/jerrykuku/luci-app-argon-config.git ./package/argon/luci-app-argon-config
+git clone https://github.com/jerrykuku/luci-app-argon-config.git ./package/argon/luci-app-argon-config --depth=1 
 
-git clone https://github.com/Kazagumo/luci-app-3ginfo-lite-zhcn ./package/3glite
+git clone https://github.com/Kazagumo/luci-app-3ginfo-lite-zhcn ./package/luci-app-3ginfo-lite-zhcn --depth=1 
 
-git clone https://github.com/4IceG/luci-app-sms-tool ./package/smstool
+git clone https://github.com/4IceG/luci-app-sms-tool ./package/luci-app-sms-tool --depth=1 
+
+git clone https://github.com/Kazagumo/luci-app-oled ./package/luci-app-oled-mod --depth=1 
+
+git clone https://https://github.com/gSpotx2f/luci-app-temp-status --depth=1
+
+git clone https://github.com/Kazagumo/luci-app-cpufreq --depth=1
 
 git clone https://github.com/Kazagumo/OPi-Zero2-OPPatcher --depth=1 ./OPi-Zero2-OPPatcher
 bash ./OPi-Zero2-OPPatcher/replace.sh
