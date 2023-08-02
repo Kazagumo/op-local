@@ -1,6 +1,7 @@
 #!/bin/bash
 
 git clone https://github.com/openwrt/openwrt.git --depth=1 --branch=main
+cd ./openwrt
 # 修改插件名字
 sed -i 's/"终端"/"TTYD"/g' `egrep "终端" -rl ./`
 sed -i 's/"网络存储"/"NAS"/g' `egrep "网络存储" -rl ./`
@@ -68,3 +69,6 @@ chmod +x files/etc/openclash/core/clash*
 
 #所有操作执行完毕 
 cd $backup
+
+./scripts/feeds update
+./scripts/feeds install
