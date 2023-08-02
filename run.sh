@@ -33,9 +33,9 @@ git clone https://github.com/4IceG/luci-app-sms-tool ./package/luci-app-sms-tool
 
 git clone https://github.com/Kazagumo/luci-app-oled ./package/luci-app-oled-mod --depth=1 
 
-git clone https://https://github.com/gSpotx2f/luci-app-temp-status --depth=1
+git clone https://github.com/gSpotx2f/luci-app-temp-status ./package/luci-app-temp-status --depth=1
 
-git clone https://github.com/Kazagumo/luci-app-cpufreq --depth=1
+git clone https://github.com/Kazagumo/luci-app-cpufreq ./package/luci-app-cpufreq --depth=1
 
 git clone https://github.com/Kazagumo/OPi-Zero2-OPPatcher --depth=1 ./OPi-Zero2-OPPatcher
 bash ./OPi-Zero2-OPPatcher/replace.sh
