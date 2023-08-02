@@ -76,5 +76,5 @@ chmod +x files/etc/openclash/core/clash*
 #所有操作执行完毕 
 cd $backup
 
-./scripts/feeds update
-./scripts/feeds install
+./scripts/feeds update -a
+./scripts/feeds install -a
