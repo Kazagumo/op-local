@@ -22,8 +22,13 @@ git clone https://github.com/shidahuilang/openwrt-package.git --depth=1 --branch
 
 rm -rf ./package/addons/luci-theme-argon
 rm -rf ./package/addons/luci-app-argon-config
+rm -rf ./package/addons/luci-app-oled
 
 git clone https://github.com/jerrykuku/luci-theme-argon.git ./package/argon/luci-theme-argon --depth=1 
+
+git clone https://github.com/vernesong/OpenClash ./package/luci-app-openclash --depth=1
+
+git clone https://github.com/sirpdboy/luci-app-partexp ./package/luci-app-partexp --depth=1
 
 git clone https://github.com/jerrykuku/luci-app-argon-config.git ./package/argon/luci-app-argon-config --depth=1 
 
