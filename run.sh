@@ -3,14 +3,14 @@
 git clone https://github.com/openwrt/openwrt.git --depth=1 --branch=main
 cd ./openwrt
 # 修改插件名字
-sed -i 's/"终端"/"TTYD"/g' `egrep "终端" -rl ./`
+#sed -i 's/"终端"/"TTYD"/g' `egrep "终端" -rl ./`
 sed -i 's/"网络存储"/"NAS"/g' `egrep "网络存储" -rl ./`
 sed -i 's/"实时流量监测"/"流量"/g' `egrep "实时流量监测" -rl ./`
 sed -i 's/"KMS 服务器"/"KMS激活"/g' `egrep "KMS 服务器" -rl ./`
 sed -i 's/"USB 打印服务器"/"打印服务"/g' `egrep "USB 打印服务器" -rl ./`
 sed -i 's/"Web 管理"/"Web管理"/g' `egrep "Web 管理" -rl ./`
-sed -i 's/"管理权"/"改密码"/g' `egrep "管理权" -rl ./`
-sed -i 's/"带宽监控"/"监控"/g' `egrep "带宽监控" -rl ./`
+#sed -i 's/"管理权"/"改密码"/g' `egrep "管理权" -rl ./`
+#sed -i 's/"带宽监控"/"监控"/g' `egrep "带宽监控" -rl ./`
 #set zsh as default shell
 sed -i 's/\/bin\/ash/\/usr\/bin\/zsh/g' package/base-files/files/etc/passwd
 
