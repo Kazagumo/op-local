@@ -116,6 +116,6 @@ cd $backup
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 
-
+make defconfig
 echo -e "$(nproc) thread compile"
 make -j$(nproc) || make -j1 V=s
