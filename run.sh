@@ -94,6 +94,7 @@ wget https://raw.githubusercontent.com/SuLingGG/OpenWrt-Rpi/main/data/zsh/.zshrc
 
 popd
 
+touch files/etc/uci-defaults/99-custom
 
 cat << "EOF" > files/etc/uci-defaults/99-custom
 uci set wireless.@wifi-device[0].disabled='0'
