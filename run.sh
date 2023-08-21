@@ -1,6 +1,14 @@
 #!/bin/bash
 
+
+sudo apt update
+sudo apt install build-essential clang flex bison g++ gawk gcc-multilib g++-multilib \
+gettext git libncurses-dev libssl-dev python3-distutils rsync unzip zlib1g-dev \
+file wget
+
+
 git clone https://github.com/openwrt/openwrt.git --depth=1 --branch=main
+cp ./config ./openwrt/.config
 cd ./openwrt
 # 修改插件名字
 #sed -i 's/"终端"/"TTYD"/g' `egrep "终端" -rl ./`
@@ -107,3 +115,7 @@ cd $backup
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
+
+
+echo -e "$(nproc) thread compile"
+make -j$(nproc) || make -j1 V=s
