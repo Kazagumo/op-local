@@ -35,5 +35,5 @@ jobs:
       - name: upload image
         uses: actions/upload-artifact@v3
         with: 
-            name: firmware
+            name: openwrt-sunxi-cortexa53-xunlong_orangepi-zero2-squashfs-sdcard.img.gz
             path: ./openwrt/bin/targets/sunxi/cortexa53/openwrt-sunxi-cortexa53-xunlong_orangepi-zero2-squashfs-sdcard.img.gz
