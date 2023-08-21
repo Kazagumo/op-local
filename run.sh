@@ -94,13 +94,14 @@ wget https://raw.githubusercontent.com/SuLingGG/OpenWrt-Rpi/main/data/zsh/.zshrc
 
 popd
 
-pushd files
 
-cat << "EOF" > /etc/uci-defaults/99-custom
+cat << "EOF" > files/etc/uci-defaults/99-custom
 uci set wireless.@wifi-device[0].disabled='0'
 uci commit
 wifi up
 EOF
+
+chmod +x files/etc/uci-defaults/99-custom
 
 mkdir -p files/etc/openclash/core
 
