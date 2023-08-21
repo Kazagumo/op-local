@@ -94,6 +94,14 @@ wget https://raw.githubusercontent.com/SuLingGG/OpenWrt-Rpi/main/data/zsh/.zshrc
 
 popd
 
+pushd files
+
+cat << "EOF" > /etc/uci-defaults/99-custom
+uci set wireless.@wifi-device[0].disabled='0'
+uci commit
+wifi up
+EOF
+
 mkdir -p files/etc/openclash/core
 
 CLASH_DEV_URL="https://raw.githubusercontent.com/vernesong/OpenClash/core/master/dev/clash-linux-arm64.tar.gz"
