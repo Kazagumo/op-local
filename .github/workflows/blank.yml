@@ -26,11 +26,11 @@ jobs:
         run: bash ./run.sh
 
       # Runs a set of commands using the runners shell
-      - name: Upload
-        uses: actions/upload-artifact@v3
-        with: 
-            name: firmware
-            path: ./openwrt/bin/targets
+#      - name: Upload
+#        uses: actions/upload-artifact@v3
+#        with: 
+#            name: firmware
+#            path: ./openwrt/bin/targets
             
       - name: upload image
         uses: actions/upload-artifact@v3
