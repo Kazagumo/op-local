@@ -1,14 +1,7 @@
 #!/bin/bash
 
 
-sudo apt update
-sudo apt install build-essential clang flex bison g++ gawk gcc-multilib g++-multilib \
-gettext git libncurses-dev libssl-dev python3-distutils rsync unzip zlib1g-dev \
-file wget
-
-
 git clone https://github.com/openwrt/openwrt.git --depth=1 --branch=main
-cp ./config ./openwrt/.config
 cd ./openwrt
 # 修改插件名字
 #sed -i 's/"终端"/"TTYD"/g' `egrep "终端" -rl ./`
@@ -72,7 +65,7 @@ git clone https://github.com/gSpotx2f/luci-app-temp-status ./package/luci-app-te
 
 git clone https://github.com/Kazagumo/luci-app-cpufreq ./package/luci-app-cpufreq --depth=1
 
-git clone https://github.com/Kazagumo/OPi-Zero2-OPPatcher --depth=1 ./OPi-Zero2-OPPatcher
+git clone https://github.com/Kazagumo/OPi-Zero2-OPPatcher --depth=1 --branch=6.1.40+6.1.24-1PORT ./OPi-Zero2-OPPatcher
 bash ./OPi-Zero2-OPPatcher/replace.sh
 
 rm ./OPi-Zero2-OPPatcher -rf
@@ -123,7 +116,3 @@ cd $backup
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
-
-make defconfig
-echo -e "$(nproc) thread compile"
-make -j$(nproc) || make -j1 V=s
