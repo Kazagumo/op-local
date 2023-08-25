@@ -15,19 +15,7 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
  3 files changed, 136 insertions(+), 1 deletion(-)
  create mode 100644 net/modemmanager/patches/0001-cli-add-connection-track-action.patch
 
-diff --git a/net/modemmanager/Makefile b/net/modemmanager/Makefile
-index e27988733d8db..6bde761385b59 100644
---- a/net/modemmanager/Makefile
-+++ b/net/modemmanager/Makefile
-@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
- 
- PKG_NAME:=modemmanager
- PKG_SOURCE_VERSION:=1.20.6
--PKG_RELEASE:=1
-+PKG_RELEASE:=2
- 
- PKG_SOURCE_PROTO:=git
- PKG_SOURCE_URL:=https://gitlab.freedesktop.org/mobile-broadband/ModemManager.git
+
 diff --git a/net/modemmanager/files/modemmanager.proto b/net/modemmanager/files/modemmanager.proto
 index e6ec9e2030d71..e8999e693ac23 100755
 --- a/net/modemmanager/files/modemmanager.proto
@@ -199,19 +187,6 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
  net/modemmanager/files/modemmanager.proto | 31 +++++++++++++++++++++--
  2 files changed, 30 insertions(+), 3 deletions(-)
 
-diff --git a/net/modemmanager/Makefile b/net/modemmanager/Makefile
-index 6bde761385b59..ae2a554b6c3a8 100644
---- a/net/modemmanager/Makefile
-+++ b/net/modemmanager/Makefile
-@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
- 
- PKG_NAME:=modemmanager
- PKG_SOURCE_VERSION:=1.20.6
--PKG_RELEASE:=2
-+PKG_RELEASE:=3
- 
- PKG_SOURCE_PROTO:=git
- PKG_SOURCE_URL:=https://gitlab.freedesktop.org/mobile-broadband/ModemManager.git
 diff --git a/net/modemmanager/files/modemmanager.proto b/net/modemmanager/files/modemmanager.proto
 index e8999e693ac23..1bca604d63fea 100755
 --- a/net/modemmanager/files/modemmanager.proto
@@ -248,7 +223,7 @@ index e8999e693ac23..1bca604d63fea 100755
  	# always cleanup before attempting a new connection, just in case
  	modemmanager_cleanup_connection "${modemstatus}"
  
-@@ -393,11 +409,22 @@ proto_modemmanager_setup() {
+@@ -393,6 +409,17 @@ proto_modemmanager_setup() {
  		cliauth="${cliauth}${cliauth:+|}$auth"
  	done
  
@@ -267,8 +242,3 @@ index e8999e693ac23..1bca604d63fea 100755
  	echo "starting connection with apn '${apn}'..."
  	proto_notify_error "${interface}" MM_CONNECT_IN_PROGRESS
  
--	connectargs="apn=${apn}${iptype:+,ip-type=${iptype}}${cliauth:+,allowed-auth=${cliauth}}${username:+,user=${username}}${password:+,password=${password}}${pincode:+,pin=${pincode}}"
-+	connectargs="apn=${apn}${iptype:+,ip-type=${iptype}}${cliauth:+,allowed-auth=${cliauth}}${username:+,user=${username}}${password:+,password=${password}}"
- 	mmcli --modem="${device}" --timeout 120 --simple-connect="${connectargs}" || {
- 		proto_notify_error "${interface}" MM_CONNECT_FAILED
- 		proto_block_restart "${interface}"
