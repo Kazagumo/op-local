@@ -1,7 +1,9 @@
 #!/bin/bash
 
 
+
 git clone https://github.com/openwrt/openwrt.git --depth=1 --branch=main
+script_path=$PWD
 cd ./openwrt
 # 修改插件名字
 #sed -i 's/"终端"/"TTYD"/g' `egrep "终端" -rl ./`
@@ -115,4 +117,21 @@ chmod +x files/etc/openclash/core/clash*
 cd $backup
 
 ./scripts/feeds update -a
+
+
+pushd feeds/packages
+
+for file in `ls ../$script_path`       
+do
+    if [ -d $script_path"/"$file ]  
+    then
+        read_dir $script_path"/"$file
+    else
+        patch -p0 < $script_path"/"$file   
+    fi
+done
+
+popd
+
+
 ./scripts/feeds install -a
