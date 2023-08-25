@@ -1,0 +1,36 @@
+From 6ee2f554de9a5bb4b5b5a521ad7bc70af6b10269 Mon Sep 17 00:00:00 2001
+From: Kazagumo <13860126292@163.com>
+Date: Sat, 26 Aug 2023 03:27:49 +0800
+Subject: [PATCH] Update modemmanager.commonmodemmanager : automatically
+ restart modemmanager while stucked at exporting modem
+
+some modem that require a long time to bring up and ready to communicate with router(for example em9190),they often stuck the modemmanager which makes longer waiting time useless.
+we just restart the modemmanager here to make our modem work.
+tested on orangepi zero2
+
+Signed-off-by: Kazagumo <13860126292@163.com>
+---
+ net/modemmanager/files/modemmanager.common | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/net/modemmanager/files/modemmanager.common b/net/modemmanager/files/modemmanager.common
+index a931717fd7588..b17b33cf61aab 100644
+--- a/net/modemmanager/files/modemmanager.common
++++ b/net/modemmanager/files/modemmanager.common
+@@ -165,7 +165,7 @@ mm_wait_for_modem() {
+ 	local sysfspath="$2"
+ 
+ 	# TODO: config max wait
+-	local n=45
++	local n=30
+ 	local step=5
+ 
+ 	while [ $n -ge 0 ]; do
+@@ -192,6 +192,7 @@ mm_wait_for_modem() {
+ 
+ 	mm_log "error" "timed out waiting for the modem to get exported at ${sysfspath}"
+ 	proto_set_available "${cfg}" 0
++	/etc/init.d/modemmanager restart
+ 	return 2
+ }
+ 
