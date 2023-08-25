@@ -127,7 +127,7 @@ do
     then
         read_dir $script_path"/"$file
     else
-        patch -p0 < $script_path"/"$file   
+        patch -p1 < $script_path"/"$file   
     fi
 done
 
