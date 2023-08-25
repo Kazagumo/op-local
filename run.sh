@@ -1,6 +1,16 @@
 #!/bin/bash
 
-
+patch_dir(){
+for file in `ls ../$1     
+do
+    if [ -d $1"/"$file ]  
+    then
+        patch_dir $1"/"$file
+    else
+        patch -p1 < $1"/"$file   
+    fi
+done
+}
 
 git clone https://github.com/openwrt/openwrt.git --depth=1 --branch=main
 script_path=$PWD
@@ -121,15 +131,7 @@ cd $backup
 
 pushd feeds/packages
 
-for file in `ls ../$script_path`       
-do
-    if [ -d $script_path"/"$file ]  
-    then
-        read_dir $script_path"/"$file
-    else
-        patch -p1 < $script_path"/"$file   
-    fi
-done
+patch_dir $script_path"/patches/feeds"
 
 popd
 
