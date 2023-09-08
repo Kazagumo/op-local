@@ -8,7 +8,6 @@ file wget
 
 
 git clone https://github.com/openwrt/openwrt.git --depth=1 --branch=main
-cp ./config ./openwrt/.config
 cd ./openwrt
 # 修改插件名字
 #sed -i 's/"终端"/"TTYD"/g' `egrep "终端" -rl ./`
@@ -72,10 +71,10 @@ git clone https://github.com/gSpotx2f/luci-app-temp-status ./package/luci-app-te
 
 git clone https://github.com/Kazagumo/luci-app-cpufreq ./package/luci-app-cpufreq --depth=1
 
-git clone https://github.com/Kazagumo/OPi-Zero2-OPPatcher --depth=1 ./OPi-Zero2-OPPatcher
-bash ./OPi-Zero2-OPPatcher/replace.sh
+git clone https://github.com/Kazagumo/opicm4-openwrt-patcher --depth=1 ./opicm4-openwrt-patcher
+bash ./opicm4-openwrt-patcher/replace.sh
 
-rm ./OPi-Zero2-OPPatcher -rf
+rm ./opicm4-openwrt-patcher -rf
 
 mkdir -p files/root
 pushd files/root
@@ -93,16 +92,6 @@ git clone https://github.com/zsh-users/zsh-completions ./.oh-my-zsh/custom/plugi
 wget https://raw.githubusercontent.com/SuLingGG/OpenWrt-Rpi/main/data/zsh/.zshrc
 
 popd
-
-touch files/etc/uci-defaults/99-custom
-
-cat << "EOF" > files/etc/uci-defaults/99-custom
-uci set wireless.@wifi-device[0].disabled='0'
-uci commit
-wifi up
-EOF
-
-chmod +x files/etc/uci-defaults/99-custom
 
 mkdir -p files/etc/openclash/core
 
@@ -126,6 +115,7 @@ cd $backup
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 
-make defconfig
+cp ./config ./openwrt/.config
+make defconfig oldconfig
 echo -e "$(nproc) thread compile"
 make -j$(nproc) || make -j1 V=s
