@@ -1,36 +1,42 @@
-From 6ee2f554de9a5bb4b5b5a521ad7bc70af6b10269 Mon Sep 17 00:00:00 2001
-From: Kazagumo <13860126292@163.com>
-Date: Sat, 26 Aug 2023 03:27:49 +0800
-Subject: [PATCH] Update modemmanager.commonmodemmanager : automatically
- restart modemmanager while stucked at exporting modem
+From 77c16abb1a3021bba0db97cb4349e906c9bb6ecb Mon Sep 17 00:00:00 2001
+From: Florian Eckert <fe@dev.tdt.de>
+Date: Tue, 5 Mar 2024 14:58:33 +0100
+Subject: [PATCH] modemmanager: reconnect interface if the modemmanager detects
+ a disconnect
 
-some modem that require a long time to bring up and ready to communicate with router(for example em9190),they often stuck the modemmanager which makes longer waiting time useless.
-we just restart the modemmanager here to make our modem work.
-tested on orangepi zero2
+There are situation for mobile routers, that the modemmanager can not
+stay connected to the mobile network. There can have various reasons.
+In order for the system to reconnect automatically, the netifd must be
+informed that it must re-establish the connection.
 
-Signed-off-by: Kazagumo <13860126292@163.com>
+The modem manager already does have a script callback handling which is
+already used by the modemmanager in openwrt. Currently the modem is marked
+as not unavailable when a disconnected event is detected.
+
+The behavior was changed with this commit, so that a reconnect of the
+interface is now triggerd via the netifd if the modem disconnects.
+
+Signed-off-by: Florian Eckert <fe@dev.tdt.de>
 ---
- net/modemmanager/files/modemmanager.common | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ net/modemmanager/Makefile                                   | 2 +-
+ .../files/usr/lib/ModemManager/connection.d/10-report-down  | 6 +++---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/net/modemmanager/files/modemmanager.common b/net/modemmanager/files/modemmanager.common
-index a931717fd7588..b17b33cf61aab 100644
---- a/net/modemmanager/files/modemmanager.common
-+++ b/net/modemmanager/files/modemmanager.common
-@@ -165,7 +165,7 @@ mm_wait_for_modem() {
- 	local sysfspath="$2"
+diff --git a/net/modemmanager/files/usr/lib/ModemManager/connection.d/10-report-down b/net/modemmanager/files/usr/lib/ModemManager/connection.d/10-report-down
+index 0ebe87de52ab2..b8feb26779072 100644
+--- a/net/modemmanager/files/usr/lib/ModemManager/connection.d/10-report-down
++++ b/net/modemmanager/files/usr/lib/ModemManager/connection.d/10-report-down
+@@ -31,9 +31,9 @@ CFG=$(mm_get_modem_config "${MODEM_DEVICE}")
+ IFUP=$(ifstatus "${CFG}" | jsonfilter -e "@.up")
  
- 	# TODO: config max wait
--	local n=45
-+	local n=30
- 	local step=5
- 
- 	while [ $n -ge 0 ]; do
-@@ -192,6 +192,7 @@ mm_wait_for_modem() {
- 
- 	mm_log "error" "timed out waiting for the modem to get exported at ${sysfspath}"
- 	proto_set_available "${cfg}" 0
-+	/etc/init.d/modemmanager restart
- 	return 2
+ [ "${IFUP}" = "true" ] && {
+-	logger -t "modemmanager" "interface ${CFG} (network device ${INTERFACE}) ${STATE}"
+-	proto_init_update $INTERFACE 0
+-	proto_send_update $CFG
++	mm_log "info" "Reconnecting '${CFG}' on '${STATE}' event"
++	ubus call network.interface down "{ 'interface': '${CFG}'}"
++	ubus call network.interface up "{ 'interface': '${CFG}'}"
  }
+ 
+ exit 0
  
