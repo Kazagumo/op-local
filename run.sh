@@ -77,10 +77,12 @@ git clone https://github.com/gSpotx2f/luci-app-temp-status ./package/luci-app-te
 
 git clone https://github.com/Kazagumo/luci-app-cpufreq ./package/luci-app-cpufreq --depth=1
 
-git clone https://github.com/Kazagumo/OPi-Zero2-OPPatcher --depth=1 --branch=6.1.40+6.1.24-1PORT ./OPi-Zero2-OPPatcher
-bash ./OPi-Zero2-OPPatcher/replace.sh
+git clone https://github.com/Kazagumo/sierra-mbpl ./package/sierra-mbpl --depth=1
 
-rm ./OPi-Zero2-OPPatcher -rf
+git clone https://github.com/Kazagumo/opicm4-openwrt-patcher --branch=plain --depth=1 ./opicm4-openwrt-patcher
+bash ./opicm4-openwrt-patcher/replace.sh
+
+rm ./opicm4-openwrt-patcher -rf
 
 mkdir -p files/root
 pushd files/root
