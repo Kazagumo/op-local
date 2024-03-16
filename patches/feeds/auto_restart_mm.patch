@@ -26,7 +26,7 @@ diff --git a/net/modemmanager/files/usr/lib/ModemManager/connection.d/10-report-
 index 0ebe87de52ab2..b8feb26779072 100644
 --- a/net/modemmanager/files/usr/lib/ModemManager/connection.d/10-report-down
 +++ b/net/modemmanager/files/usr/lib/ModemManager/connection.d/10-report-down
-@@ -31,9 +31,9 @@ CFG=$(mm_get_modem_config "${MODEM_DEVICE}")
+@@ -31,9 +31,8 @@ CFG=$(mm_get_modem_config "${MODEM_DEVICE}")
  IFUP=$(ifstatus "${CFG}" | jsonfilter -e "@.up")
  
  [ "${IFUP}" = "true" ] && {
@@ -34,7 +34,6 @@ index 0ebe87de52ab2..b8feb26779072 100644
 -	proto_init_update $INTERFACE 0
 -	proto_send_update $CFG
 +	mm_log "info" "Reconnecting '${CFG}' on '${STATE}' event"
-+	ubus call network.interface down "{ 'interface': '${CFG}'}"
 +	ubus call network.interface up "{ 'interface': '${CFG}'}"
  }
  
