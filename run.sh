@@ -27,7 +27,7 @@ backup=$PWD
 #备份工作目录以免找不到下一步脚本
 #现在可随意修改工作目录位置
 
-
+curl -sSL https://raw.githubusercontent.com/chenmozhijin/turboacc/luci/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh --no-sfe
 
 git clone https://github.com/jerrykuku/luci-theme-argon.git ./package/argon/luci-theme-argon --depth=1 
 
