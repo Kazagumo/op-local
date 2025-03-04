@@ -61,7 +61,7 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ./.oh-my-zsh/
 git clone https://github.com/zsh-users/zsh-completions ./.oh-my-zsh/custom/plugins/zsh-completions
 
 # Get .zshrc dotfile
-wget https://raw.githubusercontent.com/SuLingGG/OpenWrt-Rpi/main/data/zsh/.zshrc
+wget https://raw.githubusercontent.com/Kazagumo/dotfiles/refs/heads/main/.zshrc
 
 popd
 
